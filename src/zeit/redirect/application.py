@@ -104,7 +104,6 @@ class Application(object):
             registry=registry)
         config.setup_registry(settings=self.settings)
 
-        config.include('cornice')
         config.include('pyramid_tm')
         config.include('pyramid_debugtoolbar')
         config.include('pyramid_jinja2')
@@ -123,8 +122,9 @@ class Application(object):
 
     def configure_routes(self):
         c = self.config
-        c.add_route('home', '/')
-        c.add_route('ping', '/ping')
+        c.add_route('ping', '/_ping')
+        c.add_route('add', '/_add')
+        c.add_route('redirect', '/*path')
 
     @property
     def pipeline(self):
