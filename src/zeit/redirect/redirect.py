@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPMovedPermanently
 from pyramid.view import view_config
 from zeit.redirect.db import Redirect
 import json
@@ -8,7 +8,9 @@ import json
 def check_redirect(request):
     redirect = Redirect.query().filter_by(source=request.path).first()
     if redirect:
-        raise HTTPFound(request.headers['Host'] + redirect.target)
+        # XXX Should we be protocol-relative (https etc.)?
+        raise HTTPMovedPermanently(
+            'http://' + request.headers['Host'] + redirect.target)
     else:
         return ''
 

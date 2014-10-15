@@ -14,20 +14,25 @@ setup(
     license='gocept proprietary',
     namespace_packages=['zeit'],
     install_requires=[
-        'cornice',
         'gocept.logging',
         'pyramid',
         'pyramid_jinja2',
         'pyramid_tm',
         'pyramid_debugtoolbar',
         'repoze.vhm',
-        'risclog.sqlalchemy >= 1.7.0.dev0',
+        'risclog.sqlalchemy >= 1.7.1.dev0',
         'setuptools',
         'zope.component',
         'zope.configuration',
         'zope.event',
         'zope.interface',
     ],
+    extras_require={
+        'test': [
+            'gocept.httpserverlayer',
+            'requests',
+            'risclog.sqlalchemy [test]',
+    ]},
     entry_points={
         'paste.app_factory': [
             'application = zeit.redirect.application:paste_app_factory',
