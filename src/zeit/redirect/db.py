@@ -25,6 +25,11 @@ class Redirect(Object):
         redirect = cls.find_or_create(source=source)
         redirect.target = target
 
+        for existing in cls.query().filter_by(target=source):
+            existing.target = target
+            if existing.source == existing.target:
+                existing.delete()
+
 
 def initialize_db():
     parser = gocept.logging.ArgumentParser(
