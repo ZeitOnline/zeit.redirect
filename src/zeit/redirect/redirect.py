@@ -18,6 +18,5 @@ def check_redirect(request):
 @view_config(route_name='add', renderer='string', request_method='POST')
 def add_redirect(request):
     body = json.loads(request.body)
-    redirect = Redirect.find_or_create(source=body['source'])
-    redirect.target = body['target']
+    Redirect.add(body['source'], body['target'])
     return '{}'

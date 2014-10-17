@@ -20,6 +20,11 @@ class Redirect(Object):
     source = Column(String, unique=True)
     target = Column(String)
 
+    @classmethod
+    def add(cls, source, target):
+        redirect = cls.find_or_create(source=source)
+        redirect.target = target
+
 
 def initialize_db():
     parser = gocept.logging.ArgumentParser(
